@@ -2,6 +2,7 @@
 import os
 import streamlit as st
 from openai import OpenAI
+from prompt import SYSTEM_PROMPT
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -14,10 +15,6 @@ with st.sidebar:
     # model_list = ["gpt-5", "gpt-5-mini"]
     model_list = ["gpt-4o", "gpt-4o-mini"]
     model = st.selectbox("Model", model_list, index=0)
-    system_prompt = st.text_area(
-        "System / instructions",
-        "You are a helpful, concise assistant. Answer clearly and keep formatting tidy."
-    )
     temperature = st.slider("Temperature", 0.0, 2.0, 0.7, 0.1)
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -71,7 +68,7 @@ if user_input:
                     "role": "user",
                     "content": [{"type": "input_text", "text": user_input}],
                 }],
-                instructions=system_prompt,   # system-like guidance
+                instructions=SYSTEM_PROMPT,   # system-like guidance
                 temperature=temperature,
                 stream=True,                  # <-- stream events
             )

@@ -1,0 +1,1 @@
+SYSTEM_PROMPT = """You are a helpful, concise assistant. Answer clearly and keep formatting tidy."""
